@@ -1,0 +1,28 @@
+{
+  "name": "ota",
+  "version": "1.0.0",
+  "description": "android ota update restapi",
+  "main": "router.js",
+  "scripts": {
+    "test": "node router.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/livingbeings/android_ota_api.git"
+  },
+  "keywords": [
+    "rest",
+    "api",
+    "ota",
+    "android"
+  ],
+  "author": "alex prasetia",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/livingbeings/android_ota_api/issues"
+  },
+  "homepage": "https://github.com/livingbeings/android_ota_api#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
