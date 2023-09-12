@@ -1,0 +1,169 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Acer ABC OTA REST API",
+    "description": "ota protocol for acer ABC mobile app"
+  },
+  "host": "localhost:4000",
+  "basePath": "/",
+  "tags": [
+    {
+      "name": "Android",
+      "description": "REST API for Andorid APK OTA"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "securityDefinitions": {},
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/auth/access-token": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "request token",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Login information.",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Auth"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token Generated Successfully.",
+            "schema": {
+              "type": "string",
+              "example": "12dnv*3nvdi",
+              "xml": {
+                "name": "main"
+              }
+            }
+          },
+          "400": {
+            "description": "account was not found"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/android/app-manifest": {
+      "get": {
+        "tags": [
+          "Android"
+        ],
+        "description": "get app manifest",
+        "parameters": [
+          {
+            "name": "token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Token Generated Successfully.",
+            "schema": {
+              "$ref": "#/definitions/AppManifest"
+            }
+          },
+          "400": {
+            "description": "file was not found"
+          }
+        }
+      }
+    },
+    "/android/{project}/{file(*)}": {
+      "get": {
+        "tags": [
+          "Android"
+        ],
+        "description": "get android app update apk",
+        "parameters": [
+          {
+            "name": "project",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "file(*)",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "token",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "file was not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Auth": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "example": "alex"
+        },
+        "password": {
+          "type": "string",
+          "example": "abcde"
+        },
+        "project": {
+          "type": "string",
+          "example": "abcde"
+        }
+      }
+    },
+    "AppManifest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "label"
+        },
+        "package": {
+          "type": "string",
+          "example": "package"
+        },
+        "version": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "example": "versionCode"
+            },
+            "name": {
+              "type": "string",
+              "example": "versionName"
+            }
+          }
+        }
+      }
+    }
+  }
+}
