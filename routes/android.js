@@ -7,7 +7,7 @@ const nodeApk = require("node-apk");
 router.get("/app-manifest", async (req, res) => {
   // #swagger.tags = ['Android']
   // #swagger.description = 'get app manifest' 
-  let auth = req.app.encryption.check_token(req.headers.token);
+  let auth = req.app.encryption.check_token(req.headers.authorization);
   if (auth == null) {
     /* #swagger.responses[400] = { 
       description: "Token Error" } */
@@ -51,11 +51,19 @@ router.get("/app-manifest", async (req, res) => {
 router.get('/:project/:file(*)', (req, res) => {
   // #swagger.tags = ['Android']
   // #swagger.description = 'get android app update apk' 
-  let auth = req.app.encryption.check_token(req.headers.token);
+  const b64auth = (req.headers.authorization || '').split(' ')[1] || ''
+  const [username, token] = Buffer.from(b64auth, 'base64').toString().split(':')
+  let auth = req.app.encryption.check_token(token);
   if (auth == null) {
     /* #swagger.responses[400] = { 
       description: "Token Error" } */
     res.status(400).send("Token Error");
+    return;
+  }
+  if (auth.username != username) {
+    /* #swagger.responses[400] = { 
+      description: "Token Error" } */
+    res.status(400).send("username Error");
     return;
   }
   var file = req.params.file;

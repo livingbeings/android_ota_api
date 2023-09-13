@@ -70,7 +70,7 @@
         "description": "get app manifest",
         "parameters": [
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
             "type": "string"
           }
@@ -108,7 +108,7 @@
             "type": "string"
           },
           {
-            "name": "token",
+            "name": "authorization",
             "in": "header",
             "type": "string"
           }
